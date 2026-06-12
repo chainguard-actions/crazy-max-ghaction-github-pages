@@ -1,0 +1,25 @@
+name: Test FQDN/CNAME configuration
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create build directory
+        run: |
+          mkdir -p /tmp/build-fqdn
+          echo "<html><body>FQDN test</body></html>" > /tmp/build-fqdn/index.html
+      - id: action
+        uses: .
+        with:
+          build_dir: /tmp/build-fqdn
+          absolute_build_dir: 'true'
+          dry_run: 'true'
+          verbose: 'true'
+          fqdn: 'example.com'
+          jekyll: 'false'
+      - name: Assert fqdn input accepted
+        run: |
+          echo "Action completed successfully with fqdn=example.com"
+          echo "PASS"

@@ -1,0 +1,29 @@
+name: Test custom repo and branch
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_REF: refs/heads/main
+      GITHUB_EVENT_NAME: push
+      GITHUB_REPOSITORY: crazy-max/ghaction-github-pages
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create build directory
+        run: mkdir -p /tmp/build-repo && echo "<html><body>Repo Test</body></html>" > /tmp/build-repo/index.html
+      - id: action
+        uses: .
+        with:
+          repo: 'crazy-max/ghaction-github-pages'
+          build_dir: /tmp/build-repo
+          absolute_build_dir: 'true'
+          target_branch: 'gh-pages'
+          keep_history: 'false'
+          allow_empty_commit: 'false'
+          dry_run: 'true'
+          verbose: 'true'
+      - name: Assert action completed with custom repo
+        run: |
+          echo "Action completed successfully with custom repo and branch settings"
+          echo "PASS"

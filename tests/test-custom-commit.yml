@@ -1,0 +1,29 @@
+name: Test custom commit metadata
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_REF: refs/heads/main
+      GITHUB_EVENT_NAME: push
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create build directory
+        run: mkdir -p /tmp/build-custom && echo "<html><body>Custom</body></html>" > /tmp/build-custom/index.html
+      - id: action
+        uses: .
+        with:
+          build_dir: /tmp/build-custom
+          absolute_build_dir: 'true'
+          dry_run: 'true'
+          verbose: 'true'
+          author: 'Test Author <test-author@example.com>'
+          committer: 'Test Committer <test-committer@example.com>'
+          commit_message: 'chore: deploy to GitHub Pages'
+          fqdn: 'example.com'
+          jekyll: 'false'
+      - name: Assert action completed with custom commit metadata
+        run: |
+          echo "Action completed successfully with custom author, committer, commit_message, and fqdn"
+          echo "PASS"

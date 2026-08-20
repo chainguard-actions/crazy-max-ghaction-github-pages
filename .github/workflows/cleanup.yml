@@ -1,0 +1,37 @@
+name: cleanup
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  branches:
+    runs-on: ubuntu-latest
+    permissions:
+      # required to remove git branch
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        branch:
+          - gh-pages
+          - gh-pages-keep
+    steps:
+      -
+        name: Delete branch
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            await github.rest.git.deleteRef({
+              ...context.repo,
+              ref: "heads/${{ matrix.branch }}"
+            });

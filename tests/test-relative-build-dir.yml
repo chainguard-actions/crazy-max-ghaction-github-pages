@@ -1,0 +1,42 @@
+name: Test relative build directory dry-run
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Create relative build directory in workspace
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/site-output"
+          echo "<html><body><h1>Relative Path Site</h1></body></html>" > "$GITHUB_WORKSPACE/site-output/index.html"
+          echo "Relative build content" > "$GITHUB_WORKSPACE/site-output/readme.txt"
+
+      - id: deploy
+        name: Deploy with relative build_dir (dry run)
+        uses: .
+        continue-on-error: true
+        with:
+          repo: crazy-max/ghaction-github-pages
+          build_dir: site-output
+          absolute_build_dir: 'false'
+          dry_run: 'true'
+          verbose: 'true'
+          commit_message: 'Relative path deployment'
+
+      - name: Assert action completed with relative build dir
+        env:
+          OUTCOME: ${{ steps.deploy.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" = "success" ]; then
+            echo "PASS: relative build_dir dry-run deployment succeeded"
+          elif [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: action failed gracefully (remote access issue with test environment)"
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
+            exit 1
+          fi

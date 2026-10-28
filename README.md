@@ -6,11 +6,11 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/tree/v4.0.0) | [`c05ee63`](https://github.com/crazy-max/ghaction-github-pages/commit/c05ee637ec73429400a359430db8e5629f3f2564) |
-| v4.1.0 | [`v4.1.0`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/tree/v4.1.0) | [`fbf0a4f`](https://github.com/crazy-max/ghaction-github-pages/commit/fbf0a4fa4e00f45accd6cf3232368436ec06ed59) |
-| v5.0.0 | [`v5.0.0`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/tree/v5.0.0) | [`1d6ee9b`](https://github.com/crazy-max/ghaction-github-pages/commit/1d6ee9b181a81033a16bd707a1401afa978daab4) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v4.0.0 | [`v4.0.0`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/tree/v4.0.0) | [`c05ee63`](https://github.com/crazy-max/ghaction-github-pages/commit/c05ee637ec73429400a359430db8e5629f3f2564) | [`HARDENING.md`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/blob/v4.0.0/HARDENING.md) |
+| v4.1.0 | [`v4.1.0`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/tree/v4.1.0) | [`fbf0a4f`](https://github.com/crazy-max/ghaction-github-pages/commit/fbf0a4fa4e00f45accd6cf3232368436ec06ed59) | [`HARDENING.md`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/blob/v4.1.0/HARDENING.md) |
+| v5.0.0 | [`v5.0.0`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/tree/v5.0.0) | [`1d6ee9b`](https://github.com/crazy-max/ghaction-github-pages/commit/1d6ee9b181a81033a16bd707a1401afa978daab4) | [`HARDENING.md`](https://github.com/chainguard-actions/crazy-max-ghaction-github-pages/blob/v5.0.0/HARDENING.md) |
 
 ## Privacy
 
